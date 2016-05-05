@@ -1,7 +1,7 @@
 /* vim: set sw=4 sts=4 et foldmethod=syntax : */
 
 /*
- * Copyright (c) 2010, 2011, 2012, 2013, 2014, 2015 Danny van Dyk
+ * Copyright (c) 2010, 2011, 2012, 2013, 2014, 2015, 2016 Danny van Dyk
  * Copyright (c) 2010 Christian Wacker
  *
  * This file is part of the EOS project. EOS is free software;
@@ -430,6 +430,13 @@ namespace eos
             Parameter::Template{"B->K^*::b^T1_1@KMPW2010",                       -5.01,           -4.6,            -3.79          },
             Parameter::Template{"B->K^*::b^T2_1@KMPW2010",                       -5.4,            -3.2,            -1.1           },
             Parameter::Template{"B->K^*::b^T3_1@KMPW2010",                      -13.4,           -10.3,            -7.8           },
+
+            // form factor parameters for B->D^* according to [FKN2012].
+            Parameter::Template{"B->D^*::h_A1(1)@FKN2012",                        0.897,           0.921,           0.945         },
+            Parameter::Template{"B->D^*::rho^2@FKN2012",                          1.179,           1.214,           1.249         },
+            Parameter::Template{"B->D^*::R_1(1)@FKN2012",                         1.363,           1.401,           1.440         },
+            Parameter::Template{"B->D^*::R_2(1)@FKN2012",                         0.839,           0.864,           0.889         },
+            Parameter::Template{"B->D^*::sigma_0@FKN2012",                        0.9,             1.0,             1.1           },
 
             // form factor parameter for B_s->K^* according to [FMvD2015].
             Parameter::Template{"B_s->K^*::F_perp(0)@FMvD2015",                   0.349,           0.349,           0.349         },

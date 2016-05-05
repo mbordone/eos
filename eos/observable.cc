@@ -1,7 +1,7 @@
 /* vim: set sw=4 sts=4 et foldmethod=syntax : */
 
 /*
- * Copyright (c) 2010, 2011, 2012, 2013, 2014, 2015 Danny van Dyk
+ * Copyright (c) 2010, 2011, 2012, 2013, 2014, 2015, 2016 Danny van Dyk
  * Copyright (c) 2011 Christian Wacker
  *
  * This file is part of the EOS project. EOS is free software;
@@ -193,6 +193,22 @@ namespace eos
 
             make_observable("B->D::f_0(s)", "B->D",
                     &FormFactors<PToP>::f_0),
+
+            // B -> D^* Form Factors
+            make_observable("B->D^*::V(s)", "B->D^*",
+                    &FormFactors<PToV>::v),
+
+            make_observable("B->D^*::A_0(s)", "B->D^*",
+                    &FormFactors<PToV>::a_0),
+
+            make_observable("B->D^*::A_1(s)", "B->D^*",
+                    &FormFactors<PToV>::a_1),
+
+            make_observable("B->D^*::A_2(s)", "B->D^*",
+                    &FormFactors<PToV>::a_2),
+
+            make_observable("B->D^*::A_12(s)", "B->D^*",
+                    &FormFactors<PToV>::a_12),
 
             // B_s -> K^* Form Factors
             make_observable("B_s->K^*::V(s)", "B_s->K^*",

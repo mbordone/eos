@@ -1,7 +1,7 @@
 /* vim: set sw=4 sts=4 et foldmethod=syntax : */
 
 /*
- * Copyright (c) 2010, 2011, 2013, 2014, 2015 Danny van Dyk
+ * Copyright (c) 2010, 2011, 2013, 2014, 2015, 2016 Danny van Dyk
  * Copyright (c) 2015 Christoph Bobeth
  * Copyright (c) 2010, 2011 Christian Wacker
  *
@@ -139,6 +139,7 @@ namespace eos
             { KeyType("B_s->K^*",   "BFW2010"),  &BFW2010FormFactors<BsToKstar, PToV>::make },
             { KeyType("B_s->K^*",   "FMvD2015"), &FMvD2015FormFactors<BsToKstar>::make      },
             { KeyType("B_s->phi",   "BZ2004"),   &BZ2004FormFactors<BsToPhi, PToV>::make    },
+            { KeyType("B->D^*",     "FKN2012"),  &FKN2012FormFactors<BToDstar>::make        },
         };
 
         /*

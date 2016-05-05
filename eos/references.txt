@@ -783,6 +783,13 @@ Theoretical Inputs
         arxiv:1208.2843
 
 
+    FKN2012 : Fajfer, S. and Kamenik, J.F. and Nisandzic, I.
+
+        On the B -> D^* tau nubar_tau Sensitivity to New Physics
+
+        arXiv:1203.2654
+
+
     FM2002 : Feldmann, Th. and Matias, J.
 
         Forward-backward and isospin asymmetry for B -> K^* l^+ l^- decay

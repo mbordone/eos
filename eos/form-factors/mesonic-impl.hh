@@ -80,6 +80,12 @@ namespace eos
         static constexpr double mR2_1p = 5.723 * 5.723;
     };
 
+    struct BToDstar {
+        static constexpr const char * label = "B->D^*";
+        static constexpr double mB = 5.279;
+        static constexpr double mV = 2.007;
+    };
+
     template <typename Process_> class BZ2004FormFactors<Process_, PToV> :
         public FormFactors<PToV>
     {
@@ -399,6 +405,144 @@ namespace eos
             virtual double t_23(const double &) const
             {
                 throw InternalError("BFW2010FormFactors<>::t_23: Tensor form factors not yet implemented");
+            }
+    };
+
+    template <typename Process_> class FKN2012FormFactors :
+        public FormFactors<PToV>
+    {
+        private:
+            UsedParameter _h_A1_1, _rho2;
+            UsedParameter _R1, _R2;
+            UsedParameter _sigma_0;
+
+            // cf. [FKN2012], below eq. (B7)
+            double _z(const double & omega) const
+            {
+                return (std::sqrt(omega + 1) - std::sqrt(2.0)) / (std::sqrt(omega + 1) + std::sqrt(2.0));
+            }
+
+            // cf. [FKN2012], eq. (B8)
+            double _R0() const
+            {
+                static const double r = Process_::mV / Process_::mB;
+
+                return ((0.97 * (1.0 - r) * (1.0 - r) - _R2() * (1.0 - r)) / r + 2.0) / (1.0 + r) * _sigma_0();
+            }
+
+            // cf. [FKN2012], eq. (B4)
+            static double _omega(const double & s)
+            {
+                static const double mB = Process_::mB;
+                static const double mV = Process_::mV;
+
+                return (mB * mB + mV * mV - s) / (2.0 * mB * mV);
+            }
+
+            // cf. [FKN2012], eq. (B7)
+            double _h_A1(const double & omega) const
+            {
+                const double z = _z(omega), z2 = z * z, z3 = z2 * z;
+
+                return _h_A1_1() * (1.0 - 8.0 * _rho2() * z + (53.0 * _rho2() - 15.0) * z2 - (231.0 * _rho2() - 91.0) * z3);
+            }
+
+        public:
+            FKN2012FormFactors(const Parameters & p, const Options &) :
+                _h_A1_1(p["B->D^*::h_A1(1)@FKN2012"], *this),
+                _rho2(p["B->D^*::rho^2@FKN2012"], *this),
+                _R1(p["B->D^*::R_1(1)@FKN2012"], *this),
+                _R2(p["B->D^*::R_2(1)@FKN2012"], *this),
+                _sigma_0(p["B->D^*::sigma_0@FKN2012"], *this)
+            {
+            }
+
+            ~FKN2012FormFactors()
+            {
+            }
+
+            static FormFactors<PToV> * make(const Parameters & parameters, unsigned)
+            {
+                return new FKN2012FormFactors(parameters, Options());
+            }
+
+            virtual double v(const double & s) const
+            {
+                static const double mB = Process_::mB;
+                static const double mV = Process_::mV;
+                static const double Rstar = 2.0 * std::sqrt(mB * mV) / (mB + mV);
+
+                double omega = _omega(s), omegam1 = omega - 1.0;
+
+                // cf. [FKN2012], eq. (B6) and (B7)
+                return (_R1() - 0.12 * omegam1 + 0.05 * omegam1 * omegam1) / Rstar * _h_A1(omega);
+            }
+
+            virtual double a_0(const double & s) const
+            {
+                static const double mB = Process_::mB;
+                static const double mV = Process_::mV;
+                static const double Rstar = 2.0 * std::sqrt(mB * mV) / (mB + mV);
+
+                double omega = _omega(s), omegam1 = omega - 1.0;
+
+                // cf. [FKN2012], eq. (B6) and (B7)
+                return (_R0() - 0.11 * omegam1 + 0.01 * omegam1 * omegam1) / Rstar * _h_A1(omega);
+            }
+
+            virtual double a_1(const double & s) const
+            {
+                static const double mB = Process_::mB;
+                static const double mV = Process_::mV;
+                static const double Rstar = 2.0 * std::sqrt(mB * mV) / (mB + mV);
+
+                double omega = _omega(s);
+
+                // cf. [FKN2012], eq. (B5)
+                return Rstar * _h_A1(omega) * (omega + 1.0) / 2.0;
+            }
+
+            virtual double a_2(const double & s) const
+            {
+                static const double mB = Process_::mB;
+                static const double mV = Process_::mV;
+                static const double Rstar = 2.0 * std::sqrt(mB * mV) / (mB + mV);
+
+                double omega = _omega(s), omegam1 = omega - 1.0;
+
+                // cf. [FKN2012], eq. (B6) and (B7)
+                return (_R2() + 0.11 * omegam1 - 0.06 * omegam1 * omegam1) / Rstar * _h_A1(omega);
+            }
+
+            virtual double a_12(const double & s) const
+            {
+                static const double mB = Process_::mB, mB2 = mB * mB;
+                static const double mV = Process_::mV, mV2 = mV * mV;
+
+                const double lambda = mB2 * mB2 + mV2 * mV2 + s * s - 2.0 * s * (mB2 + mV2) - 2.0 * mB2 * mV2;
+
+                // cf. [HLMW2013], eq. (10).
+                return ((mB + mV) * (mB + mV) * (mB2 - mV2 - s) * this->a_1(s) - lambda * this->a_2(s)) / (16.0 * mB * mV2 * (mB + mV));
+            }
+
+            virtual double t_1(const double &) const
+            {
+                throw InternalError("FMvD2015FormFactors<>::t_1: Tensor form factors not yet implemented");
+            }
+
+            virtual double t_2(const double &) const
+            {
+                throw InternalError("FMvD2015FormFactors<>::t_2: Tensor form factors not yet implemented");
+            }
+
+            virtual double t_3(const double &) const
+            {
+                throw InternalError("FMvD2015FormFactors<>::t_3: Tensor form factors not yet implemented");
+            }
+
+            virtual double t_23(const double &) const
+            {
+                throw InternalError("FMvD2015FormFactors<>::t_23: Tensor form factors not yet implemented");
             }
     };
 
