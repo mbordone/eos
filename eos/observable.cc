@@ -26,6 +26,7 @@
 #include <eos/b-decays/b-to-l-nu.hh>
 #include <eos/b-decays/b-to-pi-l-nu.hh>
 #include <eos/b-decays/b-to-d-l-nu.hh>
+#include <eos/b-decays/b-to-dstar-l-nu.hh>
 #include <eos/b-decays/bs-to-kstar-l-nu.hh>
 #include <eos/b-decays/inclusive-b-to-u.hh>
 #include <eos/b-decays/properties.hh>
@@ -300,6 +301,22 @@ namespace eos
 
             make_observable("B->Dlnu::R_D",
                             &BToDLeptonNeutrino::integrated_r_d),
+
+            // B -> D^* l nu
+            make_observable("B->D^*lnu::dBR/ds",
+                            &BToDstarLeptonNeutrino::differential_branching_ratio,
+                            std::make_tuple("s")),
+
+            make_observable("B->D^*lnu::BR",
+                            &BToDstarLeptonNeutrino::integrated_branching_ratio,
+                            std::make_tuple("s_min", "s_max")),
+
+            make_observable("B->D^*lnu::R_D^*(s)",
+                            &BToDstarLeptonNeutrino::differential_r_dstar,
+                            std::make_tuple("s")),
+
+            make_observable("B->D^*lnu::R_D^*",
+                            &BToDstarLeptonNeutrino::integrated_r_dstar),
 
             // B_s -> K^* l nubar
             make_observable("B_s->K^*lnu::F_perp(s)",

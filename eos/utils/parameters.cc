@@ -329,8 +329,10 @@ namespace eos
             Parameter::Template{"mass::K^*_d",                                   +0.89572,        +0.89594,        +0.89616       }, // cf. [PDG2012], p. 45
             Parameter::Template{"mass::K^*_u",                                   +0.89140,        +0.89166,        +0.89192       }, // cf. [PDG2012], p. 45
             // D meson masses
-            Parameter::Template{"mass::D^+",                                     +1.86961,        +1.86952,        +1.86970       },
-            Parameter::Template{"mass::D^0",                                     +1.86484,        +1.86479,        +1.86489       },
+            Parameter::Template{"mass::D^+",                                     +1.86961,        +1.86952,        +1.86970       }, // cf. [PDG2014]
+            Parameter::Template{"mass::D^0",                                     +1.86484,        +1.86479,        +1.86489       }, // cf. [PDG2014]
+            Parameter::Template{"mass::D^*+",                                    +2.01022,        +2.01027,        +2.01032       }, // cf. [PDG2014]
+            Parameter::Template{"mass::D^*0",                                    +2.00689,        +2.00697,        +2.00705       }, // cf. [PDG2014]
             // B meson masses
             Parameter::Template{"mass::B_d",                                     +5.27941,        +5.27958,        +5.27975       }, // cf. [PDG2012], p. 84
             Parameter::Template{"mass::B_u",                                     +5.27908,        +5.27925,        +5.27942       }, // cf. [PDG2012], p. 70
