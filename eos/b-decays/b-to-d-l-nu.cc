@@ -153,13 +153,13 @@ namespace eos
         double br_muons;
         {
             Save<Parameter, double> save_m_l(_imp->m_l, 0 /*_imp->parameters["mass::mu"]()*/);
-            br_muons = integrate(f, 128, 0.02, 11.62);
+            br_muons = integrate(f, 128, 0.02, std::pow(_imp->m_B - _imp->m_D, 2));
         }
 
         double br_taus;
         {
             Save<Parameter, double> save_m_l(_imp->m_l, _imp->parameters["mass::tau"]());
-            br_taus = integrate(f, 128, 3.16, 11.62);
+            br_taus = integrate(f, 128, 3.16, std::pow(_imp->m_B - _imp->m_D, 2));
         }
 
         return br_taus / br_muons;
