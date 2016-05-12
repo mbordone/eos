@@ -1,7 +1,7 @@
 /* vim: set sw=4 sts=4 et foldmethod=syntax : */
 
 /*
- * Copyright (c) 2015 Danny van Dyk
+ * Copyright (c) 2015, 2016 Danny van Dyk
  *
  * This file is part of the EOS project. EOS is free software;
  * you can redistribute it and/or modify it under the terms of the GNU General
@@ -88,12 +88,12 @@ namespace eos
 
             make_signal_pdf("B->Dmunu::d^2Gamma",
                     &BToDLeptonInclusiveNeutrinos::normalized_differential_decay_width_1nu,
-                    std::make_tuple( KinematicRange{ "s", 0.0, 19.71 },
+                    std::make_tuple( KinematicRange{ "s", 0.0, 11.66 },
                         KinematicRange{ "cos(theta)", -1.0, +1.0 } )),
 
             make_signal_pdf("B->Dmu3nu::d^5Gamma",
                     &BToDLeptonInclusiveNeutrinos::normalized_differential_decay_width_3nu,
-                    std::make_tuple( KinematicRange{ "s", 3.16, 19.71 },
+                    std::make_tuple( KinematicRange{ "s", 3.16, 11.66 },
                         KinematicRange{ "snunubar", 0.0, 3.16 },
                         KinematicRange{ "cos(theta_tau)", -1.0, +1.0 },
                         KinematicRange{ "phi", 0.0, 2.0 * M_PI },
