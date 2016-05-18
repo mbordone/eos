@@ -1,7 +1,7 @@
 /* vim: set sw=4 sts=4 et foldmethod=syntax : */
 
 /*
- * Copyright (c) 2010, 2011, 2014, 2015 Danny van Dyk
+ * Copyright (c) 2010, 2011, 2014, 2015, 2016 Danny van Dyk
  * Copyright (c) 2010 Christian Wacker
  * Copyright (c) 2015 Frederik Beaujean
  * Copyright (c) 2015 Christoph Bobeth
@@ -23,8 +23,54 @@
 #include <test/test.hh>
 #include <eos/form-factors/form-factors.hh>
 
+#include <iostream>
+
 using namespace test;
 using namespace eos;
+
+class BToDstarFKN2012FormFactorsTest :
+    public TestCase
+{
+    public:
+        BToDstarFKN2012FormFactorsTest() :
+            TestCase("b_to_dstar_fkn2012_form_factors_test")
+        {
+        }
+
+        virtual void run() const
+        {
+            static const double eps = 5.1e-3;
+            Parameters p = Parameters::Defaults();
+            std::shared_ptr<FormFactors<PToV>> ff = FormFactorFactory<PToV>::create("B->D^*@FKN2012", p);
+
+            p["B->D^*::h_A1(1)@FKN2012"] = +0.9210;
+            p["B->D^*::rho^2@FKN2012"]   = +1.2140;
+            p["B->D^*::R_1(1)@FKN2012"]  = +1.4010;
+            p["B->D^*::R_2(1)@FKN2012"]  = +0.8640;
+            p["B->D^*::sigma_0@FKN2012"] = +1.0000;
+
+            static const double s_min = 0.0;
+            TEST_CHECK_NEARLY_EQUAL(0.803551, ff->v(s_min),      eps);
+            TEST_CHECK_NEARLY_EQUAL(0.644711, ff->a_0(s_min),    eps);
+            TEST_CHECK_NEARLY_EQUAL(0.593844, ff->a_1(s_min),    eps);
+            TEST_CHECK_NEARLY_EQUAL(0.536989, ff->a_2(s_min),    eps);
+            TEST_CHECK_NEARLY_EQUAL(0.180062, ff->a_12(s_min),   eps);
+
+            static const double s_max_2 = 5.35299;
+            TEST_CHECK_NEARLY_EQUAL(1.062010, ff->v(s_max_2),    eps);
+            TEST_CHECK_NEARLY_EQUAL(0.859213, ff->a_0(s_max_2),  eps);
+            TEST_CHECK_NEARLY_EQUAL(0.695053, ff->a_1(s_max_2),  eps);
+            TEST_CHECK_NEARLY_EQUAL(0.686392, ff->a_2(s_max_2),  eps);
+            TEST_CHECK_NEARLY_EQUAL(0.204420, ff->a_12(s_max_2), eps);
+
+            static const double s_max = 10.706;
+            TEST_CHECK_NEARLY_EQUAL(1.441300, ff->v(s_max),      eps);
+            TEST_CHECK_NEARLY_EQUAL(1.17374,  ff->a_0(s_max),    eps);
+            TEST_CHECK_NEARLY_EQUAL(0.822906, ff->a_1(s_max),    eps);
+            TEST_CHECK_NEARLY_EQUAL(0.890601, ff->a_2(s_max),    eps);
+            TEST_CHECK_NEARLY_EQUAL(0.231453, ff->a_12(s_max),   eps);
+        }
+} b_to_dstar_fkn2012_form_factors_test;
 
 class BCL2008FormFactorsTest :
     public TestCase
