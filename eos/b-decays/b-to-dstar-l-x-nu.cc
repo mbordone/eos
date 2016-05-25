@@ -162,10 +162,10 @@ namespace eos
                            - (mtau2 + s) * (mtau2 - 2.0 * snunubar) * (2.0 * Flong2 * mB2 - (Fperp2 + Fpara2) * s) * zst;
 
             // multiplying sqrt(1 - z^2)
-            const double d = 4.0 * mtau / sqrt(s) * (mtau2 - 2.0 * snunubar) * (Flong * Ftime * mB2 - Fperp * Fpara * s) * sqrt(1.0 - zst * zst);
+            const double d = 4.0 * mtau * sqrt(s) * (mtau2 - 2.0 * snunubar) * (Flong * Ftime * mB2 - Fperp * Fpara * s) * sqrt(1.0 - zst * zst);
 
             // multiplying z sqrt(1 - z^2)
-            const double e = 2.0 * mtau / sqrt(s) * (mtau2 - 2.0 * snunubar) * (2.0 * Flong2 * mB2 + (Fperp2 + Fpara2) * s) * sqrt(1.0 - zst * zst);
+            const double e = 2.0 * mtau * sqrt(s) * (mtau2 - 2.0 * snunubar) * (2.0 * Flong2 * mB2 - (Fperp2 + Fpara2) * s) * sqrt(1.0 - zst * zst);
 
             return 3.0 / 8.0 * power_of<2>((mtau2 - s) * (mtau2 - snunubar)) * sqrtlam * (a + b * z + c * z2 + (d + e * z) * sqrt(1.0 - z2) * cos(phi)) / (mtau8 * M_PI * s3) / Gamma_3;
         }

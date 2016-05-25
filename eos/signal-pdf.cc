@@ -19,6 +19,7 @@
 
 #include <eos/signal-pdf.hh>
 #include <eos/b-decays/b-to-d-l-x-nu.hh>
+#include <eos/b-decays/b-to-dstar-l-x-nu.hh>
 #include <eos/b-decays/b-to-pi-l-x-nu.hh>
 #include <eos/b-decays/bs-to-kstar-l-nu.hh>
 #include <eos/rare-b-decays/exclusive-b-to-s-dilepton-large-recoil.hh>
@@ -94,6 +95,19 @@ namespace eos
             make_signal_pdf("B->Dmu3nu::d^5Gamma",
                     &BToDLeptonInclusiveNeutrinos::normalized_differential_decay_width_3nu,
                     std::make_tuple( KinematicRange{ "s", 3.16, 11.66 },
+                        KinematicRange{ "snunubar", 0.0, 3.16 },
+                        KinematicRange{ "cos(theta_tau)", -1.0, +1.0 },
+                        KinematicRange{ "phi", 0.0, 2.0 * M_PI },
+                        KinematicRange{ "cos(theta_mu^*)", -1.0, +1.0 } )),
+
+            make_signal_pdf("B->D^*munu::d^2Gamma",
+                    &BToDstarLeptonInclusiveNeutrinos::normalized_differential_decay_width_1nu,
+                    std::make_tuple( KinematicRange{ "s", 0.0, 10.71 },
+                        KinematicRange{ "cos(theta)", -1.0, +1.0 } )),
+
+            make_signal_pdf("B->D^*mu3nu::d^5Gamma",
+                    &BToDstarLeptonInclusiveNeutrinos::normalized_differential_decay_width_3nu,
+                    std::make_tuple( KinematicRange{ "s", 3.16, 10.71 },
                         KinematicRange{ "snunubar", 0.0, 3.16 },
                         KinematicRange{ "cos(theta_tau)", -1.0, +1.0 },
                         KinematicRange{ "phi", 0.0, 2.0 * M_PI },
