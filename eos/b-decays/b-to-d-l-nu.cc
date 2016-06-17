@@ -100,6 +100,17 @@ namespace eos
         {
             return differential_decay_width(s) * tau_B / hbar;
         }
+
+        double differential_forward_backward_asymmetry(const double & s) const
+        {
+            double fp = form_factors->f_p(s);
+            double f0 = form_factors->f_0(s);
+            double lam = lambda(m_B * m_B, m_D * m_D, s);
+
+            double num = (3 * m_l * m_l / s) * (f0 * fp * (m_B * m_B - m_D * m_D) * sqrt(lam));
+            double denom=(3 * f0 * f0 * (m_l * m_l / s) * (m_B * m_B - m_D * m_D) * (m_B * m_B - m_D * m_D) + lam * fp * fp * ( 2 * s + m_l * m_l / s));
+            return num/denom;
+        }
     };
 
     BToDLeptonNeutrino::BToDLeptonNeutrino(const Parameters & parameters, const Options & options) :
@@ -115,6 +126,12 @@ namespace eos
     BToDLeptonNeutrino::differential_branching_ratio(const double & s) const
     {
         return _imp->differential_branching_ratio(s);
+    }
+
+    double
+    BToDLeptonNeutrino::differential_forward_backward_asymmetry(const double & s) const
+    {
+        return _imp->differential_forward_backward_asymmetry(s);
     }
 
     double

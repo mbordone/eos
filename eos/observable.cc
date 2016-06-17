@@ -291,6 +291,10 @@ namespace eos
                             &BToDLeptonNeutrino::differential_branching_ratio,
                             std::make_tuple("s")),
 
+            make_observable("B->Dlnu::A_FB(s)",
+                            &BToDLeptonNeutrino::differential_forward_backward_asymmetry,
+                            std::make_tuple("s")),
+
             make_observable("B->Dlnu::BR",
                             &BToDLeptonNeutrino::integrated_branching_ratio,
                             std::make_tuple("s_min", "s_max")),
